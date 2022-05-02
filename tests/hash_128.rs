@@ -725,4 +725,13 @@ mod impl_for_str {
             0x9C5514CDF7881DDB8326FD07983BD576
         );
     }
+
+    #[test]
+    #[cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
+    fn hash_crc_128_with_seed() {
+        assert_eq!(
+            lipsum::LIPSUM.city_hash_crc_128_with_seed(0x5555555555555555),
+            0xB0EA5866D4FB15B8AD82F66132767D3D
+        );
+    }
 }
