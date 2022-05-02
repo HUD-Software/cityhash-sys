@@ -1,4 +1,4 @@
-[![made-with-rust](https://img.shields.io/badge/Made%20with-Rust-1f425f.svg)](https://www.rust-lang.org/) [![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml)
+[![made-with-rust](https://img.shields.io/badge/Made%20with-Rust-1f425f.svg)](https://www.rust-lang.org/) [![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml) [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys)
 
 # CityHash-sys
 
