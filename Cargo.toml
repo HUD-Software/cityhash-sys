@@ -1,0 +1,13 @@
+[package]
+name = "cityhash-sys"
+version = "0.1.0"
+authors = ["Julian LALU"]
+edition = "2021"
+license = "MIT"
+description = "Rust binding of Google CityHash library."
+repository = "https://github.com/julianlalu/cityhash-sys"  
+keywords = ["hash", "string", "gamedev"]
+categories = ["algorithms", "external-ffi-bindings", "no-std"]
+
+[build-dependencies]
+cc = "1.0"
