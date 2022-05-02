@@ -12,9 +12,9 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 CityHash provides hash functions for strings. Functions mix the input bits thoroughly but are not suitable for cryptography.
 CityHash-sys is tested on little-endian but should work on big-endian architecture.
 
-### Portable hash functions
+### Hash functions without x86_64 CRC-32 intrinsic
 
-Rust binding provides a safe interface to all CityHash hash functions:
+Rust bindings provides a safe interface to all Google's CityHash hash functions:
 
 Retrieves a 32-bit hash:
 
@@ -38,12 +38,12 @@ fn city_hash_128_with_seed(buf: &[u8], seed: u128) -> u128 // Call `uint128 City
 fn city_hash_128_to_64(hash: u128) -> u64 // Call `uint64 Hash128to64(const uint128&);`
 ```
 
-**_Note:_** Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings
+**_Note:_** Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings.
 
-### x86_64 CRC-32 Instrinsics hash functions
+### Hash functions with x86_64 CRC-32 intrinsic
 
 Some functions are available only if the target is `x86_64` and support at least `sse4.2` target feature because of the usage of CRC-32 intrinsic `_mm_crc32_u64` . If we want to enable those functions use `-C target-feature=+sse4.2` or above (`avx` or `avx2`).
-Note that depending of the length of the buffer you want to hash, it can be faster to use the portable version.
+Note that depending of the length of the buffer you want to hash, it can be faster to use the non-intrinsic version.
 If the buffer to hash is less than 900 bytes, `CityHashCrc128WithSeed` and `CityHashCrc128` will respectivelly internally call `CityHash128WithSeed` and `CityHash128`, in this case, it is better to call directly `CityHash128WithSeed` or `CityHash128`.
 
 Retrieves 128-bit hash with CRC-32 intrinsic:
@@ -63,7 +63,7 @@ fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; // Call `CityHashCrc256(const char
 
 CityHash-sys provides convenient traits to hash.
 
-`CityHash` provides hash functions that do not used the CRC-32 intrinsics.
+`CityHash` trait provides hash functions that do not used the CRC-32 intrinsics.
 
 ```rust
 use cityhash_sys::CityHash;
@@ -77,7 +77,7 @@ let hash_str: u64 = "hash me!".city_hash_64();
 assert_eq!(hash_str, 0xF04A0CC67B63A0B4);
 ```
 
-`CityHashCrc` provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. (Only available with `target-feature=+sse4.2`)
+`CityHashCrc` trait provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. (Only available with `target-feature=+sse4.2`)
 
 ```rust
 use cityhash_sys::CityHashCrc;
