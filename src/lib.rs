@@ -377,45 +377,6 @@ pub trait CityHash {
     fn city_hash_128_with_seed(&self, seed: u128) -> u128;
 }
 
-
-impl CityHash for [i8] {
-    fn city_hash_32(&self) -> u32 {
-        city_hash_32(unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) })
-    }
-
-    fn city_hash_64(&self) -> u64 {
-        city_hash_64(unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) })
-    }
-
-    fn city_hash_64_with_seed(&self, seed: u64) -> u64 {
-        city_hash_64_with_seed(
-            unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) },
-            seed,
-        )
-    }
-
-    fn city_hash_64_with_seeds(&self, seed_0: u64, seed_1: u64) -> u64 {
-        city_hash_64_with_seeds(
-            unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) },
-            seed_0,
-            seed_1,
-        )
-    }
-
-    fn city_hash_128(&self) -> u128 {
-        city_hash_128(unsafe {
-            core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len())
-        })
-    }
-
-    fn city_hash_128_with_seed(&self, seed: u128) -> u128 {
-        city_hash_128_with_seed(
-            unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) },
-            seed,
-        )
-    }
-}
-
 impl CityHash for [u8] {
     fn city_hash_32(&self) -> u32 {
         city_hash_32(self)
@@ -509,21 +470,6 @@ pub trait CityHashCrc {
     ///
     /// ```
     fn city_hash_crc_256(&self) -> [u64; 4];
-}
-
-#[cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
-impl CityHashCrc for [i8] {
-    fn city_hash_crc_128(&self) -> u128 {
-        city_hash_crc_128(unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) })
-    }
-
-    fn city_hash_crc_128_with_seed(&self, seed: u128) -> u128 {
-        city_hash_crc_128_with_seed(unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) }, seed)
-    }
-
-    fn city_hash_crc_256(&self) -> [u64; 4] {
-        city_hash_crc_256(unsafe { core::slice::from_raw_parts(self.as_ptr() as *const u8, self.len()) })
-    }
 }
 
 #[cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]

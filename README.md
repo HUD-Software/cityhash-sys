@@ -77,7 +77,7 @@ let hash_str: u64 = "hash me!".city_hash_64();
 assert_eq!(hash_str, 0xF04A0CC67B63A0B4);
 ```
 
-`CityHashCrc` provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. ( Only available with `target-feature=+sse4.2`)
+`CityHashCrc` provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. (Only available with `target-feature=+sse4.2`)
 
 ```rust
 use cityhash_sys::CityHashCrc;
