@@ -1,9 +1,10 @@
-[![made-with-rust](https://img.shields.io/badge/Made%20with-Rust-1f425f.svg)](https://www.rust-lang.org/) [![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml) [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys)
 
-# CityHash-sys
+# CityHash-sys ![Crates.io](https://img.shields.io/crates/v/cityhash-sys?style=plastic)
 
-Rust binding of [Google CityHash](https://github.com/google/cityhash) library.
+Rust bindings to [Google CityHash](https://github.com/google/cityhash)'s C++ API.
 CityHash-sys do not load the standard library (a.k.a `no_std`).
+
+![Crates.io](https://img.shields.io/crates/l/cityhash-sys?style=plastic) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/HUD-Software/cityhash-sys/Build?style=plastic) ![Codecov](https://img.shields.io/codecov/c/github/HUD-Software/cityhash-sys?style=plastic)
 
 ## Introduction
 
