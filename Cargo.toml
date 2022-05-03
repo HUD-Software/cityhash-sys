@@ -1,6 +1,6 @@
 [package]
 name = "cityhash-sys"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Julian LALU"]
 edition = "2021"
 license = "MIT"
@@ -11,3 +11,7 @@ categories = ["algorithms", "external-ffi-bindings", "no-std"]
 
 [build-dependencies]
 cc = "1.0"
+
+[package.metadata.docs.rs]
+rustc-args = ["-Ctarget-feature=+sse4.2"]
+rustdoc-args = ["-Ctarget-feature=+sse4.2"]
