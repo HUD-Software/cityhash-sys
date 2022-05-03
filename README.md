@@ -98,7 +98,3 @@ On 32-bits hardware, CityHash is the nearest competitor of Murmur3 on x86.
 ## For more information
 
 See the [Google Cityhash README](./src/google/README/)
-
-<http://code.google.com/p/cityhash/>
-
-cityhash-discuss@googlegroups.com
