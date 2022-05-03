@@ -303,6 +303,18 @@ fn hash_64_with_seeds_from_str_lipsum() {
     );
 }
 
+#[test]
+fn hasher64() {
+    let mut hash: std::collections::HashSet<
+        _,
+        core::hash::BuildHasherDefault<cityhash_sys::CityHash64Hasher>,
+    > = Default::default();
+    hash.insert("the answer");
+    hash.insert("the answer 2");
+    assert_eq!(hash.get(&"the answer"), Some(&"the answer"));
+    assert_eq!(hash.get(&"the answer 2"), Some(&"the answer 2"));
+}
+
 mod impl_for_u8 {
     use crate::CITY_HASH_64_RESULTS;
     use crate::CITY_HASH_64_WITH_SEEDS_RESULT;
