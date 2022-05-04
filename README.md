@@ -14,6 +14,7 @@ CityHash-sys is tested on little-endian but should work on big-endian architectu
 
 ### Usage
 
+**Using Hasher**
 ```rust
 use core::hash::{BuildHasher, Hasher};
 use cityhash_sys::CityHashBuildHasher;
@@ -24,34 +25,43 @@ hasher.write(b"hash me!");
 assert_eq!(hasher.finish(), 0xF04A0CC67B63A0B4);
 
 ```
-
-### Portable CityHash functions
+**Using Portable CityHash functions**
 
 Rust bindings provides a safe interface to all Google's CityHash hash functions that do not make use of x86_64 CRC intrinsic:
 
-Retrieves a 32-bit hash:
-
-```rust,ignore
-fn city_hash_32(buf: &[u8]) -> u32; // Call `uint32 CityHash32(const char *, size_t);`
+***32-bit hash***
+```rust ignore
+// uint32 CityHash32(const char *, size_t);
+fn city_hash_32(buf: &[u8]) -> u32;
 ```
 
-Retrieves a 64-bit hash:
+***64-bit hash***
 
-```rust,ignore
-fn city_hash_64(buf: &[u8]) -> u64; // Call `uint64 CityHash64(const char *, size_t);`
-fn city_hash_64_with_seed(buf: &[u8], seed: u64) -> u64; // Call ``uint64 CityHash64WithSeed(const char *, size_t, uint64);`
-fn city_hash_64_with_seeds(buf: &[u8], seed_0: u64, seed_1: u64) -> u64; // Call `uint64 CityHash64WithSeeds(const char *, size_t, uint64, uint64);`
+```rust ignore
+// uint64 CityHash64(const char *, size_t);
+fn city_hash_64(buf: &[u8]) -> u64;
+
+// uint64 CityHash64WithSeed(const char *, size_t, uint64);
+fn city_hash_64_with_seed(buf: &[u8], seed: u64) -> u64; 
+
+// uint64 CityHash64WithSeeds(const char *, size_t, uint64, uint64);
+fn city_hash_64_with_seeds(buf: &[u8], seed_0: u64, seed_1: u64) -> u64;
 ```
 
-Retrieves 128-bit hash:
+***128-bit hash***
 
-```rust,ignore
-fn city_hash_128(buf: &[u8]) -> u128 // Call `uint128 CityHash128(const char *, size_t);`
-fn city_hash_128_with_seed(buf: &[u8], seed: u128) -> u128 // Call `uint128 CityHash128WithSeed(const char *, size_t, uint128);`
-fn city_hash_128_to_64(hash: u128) -> u64 // Call `uint64 Hash128to64(const uint128&);`
+```rust ignore
+// uint128 CityHash128(const char *, size_t);
+fn city_hash_128(buf: &[u8]) -> u128;
+
+// uint128 CityHash128WithSeed(const char *, size_t, uint128);
+fn city_hash_128_with_seed(buf: &[u8], seed: u128) -> u128;
+
+// uint64 Hash128to64(const uint128&);
+fn city_hash_128_to_64(hash: u128) -> u64;
 ```
 
-**_Note:_** Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings.
+**_Note:_** *Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings.*
 
 ### Hash functions with x86_64 CRC-32 intrinsic
 
@@ -59,17 +69,21 @@ Some functions are available only if the target is `x86_64` and support at least
 Note that depending of the length of the buffer you want to hash, it can be faster to use the non-intrinsic version.
 If the buffer to hash is less than 900 bytes, `CityHashCrc128WithSeed` and `CityHashCrc128` will respectivelly internally call `CityHash128WithSeed` and `CityHash128`, in this case, it is better to call directly `CityHash128WithSeed` or `CityHash128`.
 
-Retrieves 128-bit hash with CRC-32 intrinsic:
+***128-bit hash with CRC-32 intrinsic***
 
-```rust,ignore
-fn city_hash_crc_128(buf: &[u8]) -> u128; // Call `uint128 CityHashCrc128(const char *, size_t);`
-fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128; // Call `uint128 CityHashCrc128WithSeed(const char *, size_t, uint128);`
+```rust ignore
+// uint128 CityHashCrc128(const char *, size_t);
+fn city_hash_crc_128(buf: &[u8]) -> u128;
+
+// uint128 CityHashCrc128WithSeed(const char *, size_t, uint128);
+fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 ```
 
-Retrievse 256-bit hash with CRC-32 intrinsic:
+***256-bit hash with CRC-32 intrinsic***
 
-```rust,ignore
-fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; // Call `CityHashCrc256(const char *, size_t, uint64 *);`
+```rust ignore
+// void CityHashCrc256(const char *, size_t, uint64 *);
+fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
 ```
 
 ### Rust convenient traits
@@ -93,6 +107,7 @@ assert_eq!(hash_str, 0xF04A0CC67B63A0B4);
 `CityHashCrc` trait provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. (Only available with `target-feature=+sse4.2`)
 
 ```rust
+#![cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
 use cityhash_sys::CityHashCrc;
 
 // Hash the slice with CityHashCrc128
