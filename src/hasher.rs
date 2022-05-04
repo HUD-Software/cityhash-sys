@@ -9,7 +9,7 @@ pub struct CityHash64Hasher {
 
 impl CityHash64Hasher {
     /// Create a new CityHash64Hasher initiated with a hash key
-    pub fn new_with_seed(seed: u64) -> CityHash64Hasher {
+    pub fn with_seed(seed: u64) -> CityHash64Hasher {
         CityHash64Hasher { key: Some(seed) }
     }
 }
@@ -17,13 +17,14 @@ impl CityHash64Hasher {
 impl Hasher for CityHash64Hasher {
 
     /// Returns the hash value for the values written so far.
+    /// 
     /// # Example
     ///
     /// ```
     /// use cityhash_sys::CityHash64Hasher;
     /// use core::hash::Hasher;
     ///
-    /// let hasher = CityHash64Hasher::new_with_seed(0xB4BFA9E87732C149);
+    /// let hasher = CityHash64Hasher::with_seed(0xB4BFA9E87732C149);
     /// assert_eq!(hasher.finish(), 0xB4BFA9E87732C149);
     /// ```
     fn finish(&self) -> u64 {
@@ -70,7 +71,7 @@ pub struct CityHash32Hasher {
 
 impl CityHash32Hasher {
     /// Create a new CityHash32Hasher initiated with a hash key
-    pub fn new_with_seed(seed: u32) -> CityHash32Hasher {
+    pub fn with_seed(seed: u32) -> CityHash32Hasher {
         CityHash32Hasher { key: Some(seed) }
     }
 }
@@ -78,13 +79,14 @@ impl CityHash32Hasher {
 impl Hasher for CityHash32Hasher {
 
     /// Returns the hash value for the values written so far.
+    /// 
     /// # Example
     ///
     /// ```
     /// use cityhash_sys::CityHash32Hasher;
     /// use core::hash::Hasher;
     ///
-    /// let hasher = CityHash32Hasher::new_with_seed(0xB4BFA9E);
+    /// let hasher = CityHash32Hasher::with_seed(0xB4BFA9E);
     /// assert_eq!(hasher.finish(), 0xB4BFA9E);
     /// ```
     fn finish(&self) -> u64 {
@@ -116,14 +118,15 @@ impl Hasher for CityHash32Hasher {
                 // Magic numbers for 32-bit hashing.  Copied from Murmur3.
                 const C1: u32 = 0xcc9e2d51;
                 const C2: u32 = 0x1b873593;
-
-                // Combine 2 32-bits values from Murmur3
-                key = key * C1;
-                key = key.rotate_right(17);
-                key = key * C2;
-                seed = seed ^ key;
-                seed = seed.rotate_right(19);
-                seed * 5 + 0xe6546b64
+                unsafe {
+                    // Combine 2 32-bits values from Murmur3
+                    key = key.unchecked_mul(C1);
+                    key = key.rotate_right(17);
+                    key = key.unchecked_mul(C2);
+                    seed = seed ^ key;
+                    seed = seed.rotate_right(19);
+                    seed.unchecked_mul(5).unchecked_add(0xe6546b64)
+                }
             }
         })
     }
@@ -147,7 +150,7 @@ pub struct CityHash128Hasher {
 
 impl CityHash128Hasher {
     /// Create a new CityHash128Hasher initiated with a hash key
-    pub fn new_with_seed(seed: u128) -> CityHash128Hasher {
+    pub fn with_seed(seed: u128) -> CityHash128Hasher {
         CityHash128Hasher { key: Some(seed) }
     }
 }
@@ -163,7 +166,7 @@ impl Hasher for CityHash128Hasher {
     /// use cityhash_sys::CityHash128Hasher;
     /// use core::hash::Hasher;
     ///
-    /// let hasher = CityHash128Hasher::new_with_seed(0xAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBB);
+    /// let hasher = CityHash128Hasher::with_seed(0xAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBB);
     /// assert_eq!(hasher.finish(), 0x88FC029FFEBB98B4);
     /// ```
     fn finish(&self) -> u64 {

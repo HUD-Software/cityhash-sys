@@ -39,9 +39,9 @@ jobs:
           rustup override set nightly
           cargo install grcov
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --release --verbose
     - name: Test
-      run: cargo test --verbose
+      run: cargo test --release --verbose
     - name: Generate coverage
       run: |
               grcov $(find . -name "CityHash_sys-*.profraw" -print) \
