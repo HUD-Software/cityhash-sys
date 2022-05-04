@@ -155,6 +155,8 @@ impl CityHash128Hasher {
 impl Hasher for CityHash128Hasher {
 
     /// Returns the hash value for the values written so far.
+    /// The hash is compress to a 64-bits with [city_hash_128_to_64]
+    /// 
     /// # Example
     ///
     /// ```
