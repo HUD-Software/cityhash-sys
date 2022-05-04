@@ -12,19 +12,32 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 CityHash provides hash functions for strings. Functions mix the input bits thoroughly but are not suitable for cryptography.
 CityHash-sys is tested on little-endian but should work on big-endian architecture.
 
-### Hash functions without x86_64 CRC-32 intrinsic
+### Usage
 
-Rust bindings provides a safe interface to all Google's CityHash hash functions:
+```rust
+use core::hash::{BuildHasher, Hasher};
+use cityhash_sys::CityHashBuildHasher;
+
+let build_hasher = CityHashBuildHasher::default();
+let mut hasher = build_hasher.build_hasher();
+hasher.write(b"hash me!");
+assert_eq!(hasher.finish(), 0xF04A0CC67B63A0B4);
+
+```
+
+### Portable CityHash functions
+
+Rust bindings provides a safe interface to all Google's CityHash hash functions that do not make use of x86_64 CRC intrinsic:
 
 Retrieves a 32-bit hash:
 
-```rust
+```rust,ignore
 fn city_hash_32(buf: &[u8]) -> u32; // Call `uint32 CityHash32(const char *, size_t);`
 ```
 
 Retrieves a 64-bit hash:
 
-```rust
+```rust,ignore
 fn city_hash_64(buf: &[u8]) -> u64; // Call `uint64 CityHash64(const char *, size_t);`
 fn city_hash_64_with_seed(buf: &[u8], seed: u64) -> u64; // Call ``uint64 CityHash64WithSeed(const char *, size_t, uint64);`
 fn city_hash_64_with_seeds(buf: &[u8], seed_0: u64, seed_1: u64) -> u64; // Call `uint64 CityHash64WithSeeds(const char *, size_t, uint64, uint64);`
@@ -32,7 +45,7 @@ fn city_hash_64_with_seeds(buf: &[u8], seed_0: u64, seed_1: u64) -> u64; // Call
 
 Retrieves 128-bit hash:
 
-```rust
+```rust,ignore
 fn city_hash_128(buf: &[u8]) -> u128 // Call `uint128 CityHash128(const char *, size_t);`
 fn city_hash_128_with_seed(buf: &[u8], seed: u128) -> u128 // Call `uint128 CityHash128WithSeed(const char *, size_t, uint128);`
 fn city_hash_128_to_64(hash: u128) -> u64 // Call `uint64 Hash128to64(const uint128&);`
@@ -48,14 +61,14 @@ If the buffer to hash is less than 900 bytes, `CityHashCrc128WithSeed` and `City
 
 Retrieves 128-bit hash with CRC-32 intrinsic:
 
-```rust
+```rust,ignore
 fn city_hash_crc_128(buf: &[u8]) -> u128; // Call `uint128 CityHashCrc128(const char *, size_t);`
 fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128; // Call `uint128 CityHashCrc128WithSeed(const char *, size_t, uint128);`
 ```
 
 Retrievse 256-bit hash with CRC-32 intrinsic:
 
-```rust
+```rust,ignore
 fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; // Call `CityHashCrc256(const char *, size_t, uint64 *);`
 ```
 
