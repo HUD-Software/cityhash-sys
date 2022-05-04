@@ -64,7 +64,7 @@ fn city_hash_128_to_64(hash: u128) -> u64;
 
 **_Note:_** *Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings.*
 
-### Hash functions with x86_64 CRC-32 intrinsic
+**Using CityHash functions with CRC-32 intrinsic**
 
 Some functions are available only if the target is `x86_64` and support at least `sse4.2` target feature because of the usage of CRC-32 intrinsic `_mm_crc32_u64` . If we want to enable those functions use `-C target-feature=+sse4.2` or above (`avx` or `avx2`).
 Note that depending of the length of the buffer you want to hash, it can be faster to use the non-intrinsic version.
@@ -87,7 +87,7 @@ fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
 ```
 
-### Rust convenient traits
+**Using Rust convenient traits**
 
 CityHash-sys provides convenient traits to hash.
 
@@ -116,7 +116,6 @@ let hash_crc_slice: u128 = [5u8, 4, 3, 2, 1].city_hash_crc_128();
 
 // Hash the str with CityHashCrc128
 let hash_crc_slice: u128 = "hash me!".city_hash_crc_128();
-
 ```
 
 ## Performance
