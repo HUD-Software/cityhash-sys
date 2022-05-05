@@ -41,7 +41,7 @@ assert_eq!(map.get(&KEY), Some(&VALUE));
 ```
 **_Note_** *`CityHashBuildHasher` is an alias to the the 64-bits CityHash `CityHash64Hasher`. `CityHash32Hasher` and `CityHash128Hasher` are also available but result are still `u64`. See documentation for more details.*
 
-### Using Portable CityHash functions
+### Using portable CityHash functions
 
 Rust bindings provides a safe interface to all Google's CityHash hash functions that do not make use of x86_64 CRC intrinsic:
 
