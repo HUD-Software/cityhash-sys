@@ -7,14 +7,26 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 [![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/CICD.yml)
 [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys) [![docs.rs](https://img.shields.io/docsrs/cityhash-sys?style=plastic)](https://docs.rs/cityhash-sys/latest/cityhash_sys/)
 
+**Table of contents**
+1. [Introduction](#introduction)
+2. [Usage](#usage)
+    1. [Using Hasher](#using-hasher)
+    2. [Using Portable CityHash functions](#using-portable-cityhash-functions)
+    3. [Using CityHash functions with CRC-32 intrinsic](#using-cityhash-functions-with-crc-32-intrinsic)
+    4. [Using Rust convenient traits](#using-rust-convenient-traits)
+3. [Performance](#performance)
+4. [For more information](#for-more-information)
+
 ## Introduction
 
 CityHash provides hash functions for strings. Functions mix the input bits thoroughly but are not suitable for cryptography.
 CityHash-sys is tested on little-endian but should work on big-endian architecture.
 
-### Usage
 
-**Using Hasher**
+
+## Usage
+
+### Using Hasher
 ```rust
 use core::hash::{BuildHasher, Hasher};
 use cityhash_sys::CityHashBuildHasher;
@@ -26,7 +38,7 @@ assert_eq!(hasher.finish(), 0xF04A0CC67B63A0B4);
 ```
 **_Note_** *`CityHashBuildHasher` is an alias to the the 64-bits CityHash `CityHash64Hasher`. `CityHash32Hasher` and `CityHash128Hasher` are also available but result are still `u64`. See documentation for more details.*
 
-**Using Portable CityHash functions**
+### Using Portable CityHash functions
 
 Rust bindings provides a safe interface to all Google's CityHash hash functions that do not make use of x86_64 CRC intrinsic:
 
@@ -64,7 +76,7 @@ fn city_hash_128_to_64(hash: u128) -> u64;
 
 **_Note:_** *Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings.*
 
-**Using CityHash functions with CRC-32 intrinsic**
+### Using CityHash functions with CRC-32 intrinsic
 
 Some functions are available only if the target is `x86_64` and support at least `sse4.2` target feature because of the usage of CRC-32 intrinsic `_mm_crc32_u64` . If we want to enable those functions use `-C target-feature=+sse4.2` or above (`avx` or `avx2`).
 Note that depending of the length of the buffer you want to hash, it can be faster to use the non-intrinsic version.
@@ -87,7 +99,7 @@ fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
 ```
 
-**Using Rust convenient traits**
+### Using Rust convenient traits
 
 CityHash-sys provides convenient traits to hash.
 
