@@ -1,4 +1,4 @@
-use crate::{CityHash, city_hash_128_to_64};
+use crate::{city_hash_128_to_64, CityHash};
 use core::hash::{BuildHasher, BuildHasherDefault, Hasher};
 
 /// CityHash64 hasher
@@ -15,9 +15,8 @@ impl CityHash64Hasher {
 }
 
 impl Hasher for CityHash64Hasher {
-
     /// Returns the hash value for the values written so far.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
@@ -36,7 +35,7 @@ impl Hasher for CityHash64Hasher {
     }
 
     /// Writes some data into the `CityHash64Hasher`.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
@@ -77,9 +76,8 @@ impl CityHash32Hasher {
 }
 
 impl Hasher for CityHash32Hasher {
-
     /// Returns the hash value for the values written so far.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
@@ -98,7 +96,7 @@ impl Hasher for CityHash32Hasher {
     }
 
     /// Writes some data into the `CityHash32Hasher`.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
@@ -109,10 +107,9 @@ impl Hasher for CityHash32Hasher {
     /// hasher.write(b"hash me!");
     /// ```
     fn write(&mut self, bytes: &[u8]) {
-        
         self.key = Some(match self.key {
             None => bytes.city_hash_32(),
-            Some(mut seed) => { 
+            Some(mut seed) => {
                 let mut key = bytes.city_hash_32();
 
                 // Magic numbers for 32-bit hashing.  Copied from Murmur3.
@@ -140,7 +137,6 @@ impl BuildHasher for CityHash32Hasher {
     }
 }
 
-
 /// CityHash128 hasher
 #[derive(Debug, Default)]
 pub struct CityHash128Hasher {
@@ -155,10 +151,9 @@ impl CityHash128Hasher {
 }
 
 impl Hasher for CityHash128Hasher {
-
     /// Returns the hash value for the values written so far.
     /// The hash is compress to a 64-bits with [city_hash_128_to_64]
-    /// 
+    ///
     /// # Example
     ///
     /// ```
@@ -177,7 +172,7 @@ impl Hasher for CityHash128Hasher {
     }
 
     /// Writes some data into the `CityHash128Hasher`.
-    /// 
+    ///
     /// # Example
     ///
     /// ```
@@ -188,10 +183,9 @@ impl Hasher for CityHash128Hasher {
     /// hasher.write(b"hash me!");
     /// ```
     fn write(&mut self, bytes: &[u8]) {
-        
         self.key = Some(match self.key {
             None => bytes.city_hash_128(),
-            Some(seed) => bytes.city_hash_128_with_seed(seed)
+            Some(seed) => bytes.city_hash_128_with_seed(seed),
         })
     }
 }
