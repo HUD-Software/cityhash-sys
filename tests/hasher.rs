@@ -146,7 +146,7 @@ fn hasher_128_is_usable_in_std_collections(){
 }
 
 #[test]
-fn cityhash_32_build_hasher_is_correct() {
+fn cityhash_32_build_hasher_produce_same_value() {
     let s = CityHash32Hasher::default();
     let mut hasher_1 = s.build_hasher();
     let mut hasher_2 = s.build_hasher();
@@ -158,7 +158,7 @@ fn cityhash_32_build_hasher_is_correct() {
 }
 
 #[test]
-fn cityhash_64_build_hasher_is_correct() {
+fn cityhash_64_build_hasher_produce_same_value() {
     let s = CityHash64Hasher::default();
     let mut hasher_1 = s.build_hasher();
     let mut hasher_2 = s.build_hasher();
@@ -170,7 +170,7 @@ fn cityhash_64_build_hasher_is_correct() {
 }
 
 #[test]
-fn cityhash_128_build_hasher_is_correct() {
+fn cityhash_128_build_hasher_produce_same_value() {
     let s = CityHash128Hasher::default();
     let mut hasher_1 = s.build_hasher();
     let mut hasher_2 = s.build_hasher();
