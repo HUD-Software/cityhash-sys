@@ -6,7 +6,7 @@ env:
   CARGO_TERM_COLOR: always
   RUSTFLAGS: "-Ctarget-feature=+sse4.2 -Cinstrument-coverage"
   RUSTDOCFLAGS: "-Ctarget-feature=+sse4.2"
-  LLVM_PROFILE_FILE: "./target/release/CityHash_sys-%p-%m.profraw"
+  LLVM_PROFILE_FILE: "CityHash_sys-%p-%m.profraw"
 
 jobs:
   test-coverage:
@@ -25,7 +25,7 @@ jobs:
       run: cargo test --release --verbose
     - name: Generate coverage
       run: |
-              grcov $(find . -name "./target/release/CityHash_sys-*.profraw" -print) \
+              grcov $(find . -name "CityHash_sys-*.profraw" -print) \
               --branch \
               --ignore-not-existing \
               --binary-path ./target/release/ \
