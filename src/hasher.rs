@@ -1,14 +1,14 @@
 use crate::{city_hash_128_to_64, city_hash_128, city_hash_128_with_seed, city_hash_32, city_hash_64, city_hash_64_with_seed};
 use core::hash::{BuildHasher, BuildHasherDefault, Hasher};
 
-/// CityHash64 hasher
+/// 64-bits CityHash hasher
 #[derive(Debug, Default)]
 pub struct CityHash64Hasher {
     key: Option<u64>,
 }
 
 impl CityHash64Hasher {
-    /// Create a new CityHash64Hasher initiated with a hash key
+    /// Create a new [CityHash64Hasher] initiated with a hash key
     pub fn with_seed(seed: u64) -> CityHash64Hasher {
         CityHash64Hasher { key: Some(seed) }
     }
@@ -34,7 +34,7 @@ impl Hasher for CityHash64Hasher {
         }
     }
 
-    /// Writes some data into the `CityHash64Hasher`.
+    /// Writes some data into the [CityHash64Hasher].
     ///
     /// # Example
     ///
@@ -56,20 +56,20 @@ impl Hasher for CityHash64Hasher {
 impl BuildHasher for CityHash64Hasher {
     type Hasher = CityHash64Hasher;
 
-    /// Creates a new CityHash64Hasher.
+    /// Creates a new [CityHash64Hasher].
     fn build_hasher(&self) -> Self::Hasher {
         CityHash64Hasher::default()
     }
 }
 
-/// CityHash32 hasher
+/// 32-bits CityHash hasher
 #[derive(Debug, Default)]
 pub struct CityHash32Hasher {
     key: Option<u32>,
 }
 
 impl CityHash32Hasher {
-    /// Create a new CityHash32Hasher initiated with a hash key
+    /// Create a new [CityHash32Hasher] initiated with a hash key
     pub fn with_seed(seed: u32) -> CityHash32Hasher {
         CityHash32Hasher { key: Some(seed) }
     }
@@ -95,7 +95,7 @@ impl Hasher for CityHash32Hasher {
         }
     }
 
-    /// Writes some data into the `CityHash32Hasher`.
+    /// Writes some data into the [CityHash32Hasher].
     ///
     /// # Example
     ///
@@ -112,7 +112,8 @@ impl Hasher for CityHash32Hasher {
             Some(mut seed) => {
                 let mut key = city_hash_32(bytes);
 
-                // Magic numbers for 32-bit hashing.  Copied from Murmur3.
+                // Mix of 2 u32 based on Murmur3.
+                // Magic numbers for 32-bit hashing. 
                 const C1: u32 = 0xcc9e2d51;
                 const C2: u32 = 0x1b873593;
 
@@ -131,20 +132,20 @@ impl Hasher for CityHash32Hasher {
 impl BuildHasher for CityHash32Hasher {
     type Hasher = CityHash32Hasher;
 
-    /// Creates a new CityHash32Hasher.
+    /// Creates a new [CityHash32Hasher].
     fn build_hasher(&self) -> Self::Hasher {
         CityHash32Hasher::default()
     }
 }
 
-/// CityHash128 hasher
+/// 128-bits CityHash hasher
 #[derive(Debug, Default)]
 pub struct CityHash128Hasher {
     key: Option<u128>,
 }
 
 impl CityHash128Hasher {
-    /// Create a new CityHash128Hasher initiated with a hash key
+    /// Create a new [CityHash128Hasher] initiated with a hash key
     pub fn with_seed(seed: u128) -> CityHash128Hasher {
         CityHash128Hasher { key: Some(seed) }
     }
@@ -171,7 +172,7 @@ impl Hasher for CityHash128Hasher {
         }
     }
 
-    /// Writes some data into the `CityHash128Hasher`.
+    /// Writes some data into the [CityHash128Hasher].
     ///
     /// # Example
     ///
@@ -193,19 +194,19 @@ impl Hasher for CityHash128Hasher {
 impl BuildHasher for CityHash128Hasher {
     type Hasher = CityHash128Hasher;
 
-    /// Creates a new CityHash128Hasher.
+    /// Creates a new [CityHash128Hasher].
     fn build_hasher(&self) -> Self::Hasher {
         CityHash128Hasher::default()
     }
 }
 
-/// A builder for default CityHash32 hashers.
+/// A builder for default 32-bits CityHash hashers.
 pub type CityHash32BuildHasher = BuildHasherDefault<CityHash32Hasher>;
 
-/// A builder for default CityHash64 hashers.
+/// A builder for default 64-bits CityHash hashers.
 pub type CityHash64BuildHasher = BuildHasherDefault<CityHash64Hasher>;
 
-/// A builder for default CityHash128 hashers.
+/// A builder for default 128-bits CityHash hashers.
 pub type CityHash128BuildHasher = BuildHasherDefault<CityHash128Hasher>;
 
 /// A builder for default CityHash hashers.
