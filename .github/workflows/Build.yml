@@ -4,9 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   CARGO_TERM_COLOR: always
-  RUSTFLAGS: "-Ctarget-feature=+sse4.2 -Cinstrument-coverage"
-  RUSTDOCFLAGS: "-Ctarget-feature=+sse4.2"
-  LLVM_PROFILE_FILE: "CityHash_sys-%p-%m.profraw"
+  RUSTFLAGS: "-Ctarget-feature=+sse4.2"
 
 jobs:
   build:
