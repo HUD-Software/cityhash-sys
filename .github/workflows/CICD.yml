@@ -47,7 +47,7 @@ jobs:
               grcov $(find . -name "CityHash_sys-*.profraw" -print) \
               --branch \
               --ignore-not-existing \
-              --binary-path ./target/debug/ \
+              --binary-path ./target/release/ \
               -s . \
               -t lcov \
               --ignore "/*" \
