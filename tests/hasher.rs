@@ -1,4 +1,5 @@
 use core::hash::{BuildHasher, Hasher};
+use cityhash_sys::{CityHash32Hasher, CityHash64Hasher, CityHash128Hasher};
 
 #[test]
 fn hasher_32_default(){
@@ -142,4 +143,40 @@ fn hasher_128_is_usable_in_std_collections(){
     let mut map = HashMap::with_hasher(CityHash128BuildHasher::default());
     map.insert(HASH_ME, VALUE);
     assert_eq!(map.get(&HASH_ME), Some(&VALUE));
+}
+
+#[test]
+fn cityhash_32_build_hasher_is_correct() {
+    let s = CityHash32Hasher::default();
+    let mut hasher_1 = s.build_hasher();
+    let mut hasher_2 = s.build_hasher();
+
+    hasher_1.write(b"hash me!");
+    hasher_2.write(b"hash me!");
+
+    assert_eq!(hasher_1.finish(), hasher_2.finish());
+}
+
+#[test]
+fn cityhash_64_build_hasher_is_correct() {
+    let s = CityHash64Hasher::default();
+    let mut hasher_1 = s.build_hasher();
+    let mut hasher_2 = s.build_hasher();
+
+    hasher_1.write(b"hash me!");
+    hasher_2.write(b"hash me!");
+
+    assert_eq!(hasher_1.finish(), hasher_2.finish());
+}
+
+#[test]
+fn cityhash_128_build_hasher_is_correct() {
+    let s = CityHash128Hasher::default();
+    let mut hasher_1 = s.build_hasher();
+    let mut hasher_2 = s.build_hasher();
+
+    hasher_1.write(b"hash me!");
+    hasher_2.write(b"hash me!");
+
+    assert_eq!(hasher_1.finish(), hasher_2.finish());
 }
