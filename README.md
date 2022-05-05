@@ -14,7 +14,6 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
     1. [Using Hasher](#using-hasher)
     2. [Using Portable CityHash functions](#using-portable-cityhash-functions)
     3. [Using CityHash functions with CRC-32 intrinsic](#using-cityhash-functions-with-crc-32-intrinsic)
-    4. [Using Rust convenient traits](#using-rust-convenient-traits)
 3. [Performance](#performance)
 4. [For more information](#for-more-information)
 
@@ -101,36 +100,6 @@ fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 ```rust ignore
 // void CityHashCrc256(const char *, size_t, uint64 *);
 fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
-```
-
-### Using Rust convenient traits
-
-CityHash-sys provides convenient traits to hash.
-
-`CityHash` trait provides hash functions that do not used the CRC-32 intrinsics.
-
-```rust
-use cityhash_sys::CityHash;
-
-// Hash the slice with CityHash64
-let hash_slice: u64 = [5u8, 4, 3, 2, 1].city_hash_64();
-assert_eq!(hash_slice, 0x34EC5F7922A51496);
-
-// Hash the str with CityHash64
-let hash_str: u64 = "hash me!".city_hash_64();
-assert_eq!(hash_str, 0xF04A0CC67B63A0B4);
-```
-
-`CityHashCrc` trait provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. (Only available with `target-feature=+sse4.2`)
-
-```rust
-use cityhash_sys::CityHashCrc;
-
-// Hash the slice with CityHashCrc128
-let hash_crc_slice: u128 = [5u8, 4, 3, 2, 1].city_hash_crc_128();
-
-// Hash the str with CityHashCrc128
-let hash_crc_slice: u128 = "hash me!".city_hash_crc_128();
 ```
 
 ## Performance

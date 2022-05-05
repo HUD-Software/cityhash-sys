@@ -46,7 +46,7 @@ fn build_hasher_64() {
 }
 
 #[test]
-fn build_hasher_64_result_are_coherent() {
+fn build_hasher_64_results_are_coherent() {
     let build_hasher = cityhash_sys::CityHash64BuildHasher::default();
     let mut hasher = build_hasher.build_hasher();
 
@@ -80,7 +80,7 @@ fn build_hasher_128() {
 }
 
 #[test]
-fn build_hasher_128_result_are_coherent() {
+fn build_hasher_128_results_are_coherent() {
     let build_hasher = cityhash_sys::CityHash128BuildHasher::default();
     let mut hasher = build_hasher.build_hasher();
     const HASH_ME: &[u8] = b"hash me!";

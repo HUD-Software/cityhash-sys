@@ -1,4 +1,4 @@
-use crate::{city_hash_128_to_64, CityHash};
+use crate::{city_hash_128_to_64, city_hash_128, city_hash_128_with_seed, city_hash_32, city_hash_64, city_hash_64_with_seed};
 use core::hash::{BuildHasher, BuildHasherDefault, Hasher};
 
 /// CityHash64 hasher
@@ -47,8 +47,8 @@ impl Hasher for CityHash64Hasher {
     /// ```
     fn write(&mut self, bytes: &[u8]) {
         self.key = Some(match self.key {
-            None => bytes.city_hash_64(),
-            Some(seed) => bytes.city_hash_64_with_seed(seed),
+            None => city_hash_64(bytes),
+            Some(seed) => city_hash_64_with_seed(bytes, seed),
         })
     }
 }
@@ -108,9 +108,9 @@ impl Hasher for CityHash32Hasher {
     /// ```
     fn write(&mut self, bytes: &[u8]) {
         self.key = Some(match self.key {
-            None => bytes.city_hash_32(),
+            None => city_hash_32(bytes),
             Some(mut seed) => {
-                let mut key = bytes.city_hash_32();
+                let mut key = city_hash_32(bytes);
 
                 // Magic numbers for 32-bit hashing.  Copied from Murmur3.
                 const C1: u32 = 0xcc9e2d51;
@@ -184,8 +184,8 @@ impl Hasher for CityHash128Hasher {
     /// ```
     fn write(&mut self, bytes: &[u8]) {
         self.key = Some(match self.key {
-            None => bytes.city_hash_128(),
-            Some(seed) => bytes.city_hash_128_with_seed(seed),
+            None => city_hash_128(bytes),
+            Some(seed) => city_hash_128_with_seed(bytes, seed),
         })
     }
 }

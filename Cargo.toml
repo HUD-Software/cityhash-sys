@@ -4,9 +4,9 @@ version = "0.5.0"
 authors = ["Julian LALU"]
 edition = "2021"
 license = "MIT"
-description = "Rust binding of Google CityHash library."
+description = "Rust binding of Google CityHash algorithm."
 repository = "https://github.com/HUD-Software/cityhash-sys"  
-keywords = ["hash", "string", "gamedev"]
+keywords = ["google", "hash", "string", "gamedev"]
 categories = ["algorithms", "external-ffi-bindings", "no-std"]
 
 [build-dependencies]
