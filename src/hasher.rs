@@ -118,15 +118,14 @@ impl Hasher for CityHash32Hasher {
                 // Magic numbers for 32-bit hashing.  Copied from Murmur3.
                 const C1: u32 = 0xcc9e2d51;
                 const C2: u32 = 0x1b873593;
-                unsafe {
-                    // Combine 2 32-bits values from Murmur3
-                    key = key.unchecked_mul(C1);
-                    key = key.rotate_right(17);
-                    key = key.unchecked_mul(C2);
-                    seed = seed ^ key;
-                    seed = seed.rotate_right(19);
-                    seed.unchecked_mul(5).unchecked_add(0xe6546b64)
-                }
+
+                // Combine 2 32-bits values from Murmur3
+                key = key.wrapping_mul(C1);
+                key = key.rotate_right(17);
+                key = key.wrapping_mul(C2);
+                seed = seed ^ key;
+                seed = seed.rotate_right(19);
+                seed.wrapping_mul(5).wrapping_add(0xe6546b64)
             }
         })
     }

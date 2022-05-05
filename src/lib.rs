@@ -1,5 +1,4 @@
 #![doc=include_str!("../README.md")]
-#![feature(unchecked_math)]
 //! CityHash provides hash functions for strings. CityHash mix the input bits thoroughly but are not suitable for cryptography.
 //! It is a Rust binding of [Google CityHash](https://github.com/google/cityhash) library
 //!

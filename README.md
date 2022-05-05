@@ -108,7 +108,6 @@ assert_eq!(hash_str, 0xF04A0CC67B63A0B4);
 `CityHashCrc` trait provides hash implementation for `[u8]` and `str` types with `x86_64` CRC-32 intrinsic. (Only available with `target-feature=+sse4.2`)
 
 ```rust
-#![cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
 use cityhash_sys::CityHashCrc;
 
 // Hash the slice with CityHashCrc128
