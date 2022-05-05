@@ -29,13 +29,16 @@ CityHash-sys is tested on little-endian but should work on big-endian architectu
 
 ### Using Hasher
 ```rust
-use core::hash::{BuildHasher, Hasher};
 use cityhash_sys::CityHashBuildHasher;
+use std::collections::HashMap;
+const KEY: &str = "hash";
+const VALUE: &str = "me!";
 
-let build_hasher = CityHashBuildHasher::default();
-let mut hasher = build_hasher.build_hasher();
-hasher.write(b"hash me!");
-assert_eq!(hasher.finish(), 0xF04A0CC67B63A0B4);
+// Create a HashMap that use CityHash64 to hash keys
+let mut map = HashMap::with_hasher(CityHashBuildHasher::default());
+map.insert(KEY, VALUE);
+
+assert_eq!(map.get(&KEY), Some(&VALUE));
 ```
 **_Note_** *`CityHashBuildHasher` is an alias to the the 64-bits CityHash `CityHash64Hasher`. `CityHash32Hasher` and `CityHash128Hasher` are also available but result are still `u64`. See documentation for more details.*
 
