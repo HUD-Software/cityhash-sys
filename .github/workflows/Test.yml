@@ -4,13 +4,14 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   CARGO_TERM_COLOR: always
-  RUSTFLAGS: "-Ctarget-feature=+sse4.2 -Cinstrument-coverage"
-  RUSTDOCFLAGS: "-Ctarget-feature=+sse4.2"
-  LLVM_PROFILE_FILE: "cityHash_sys-%p-%m.profraw"
+  LLVM_PROFILE_FILE: "cityhash_sys-%p-%m.profraw"
 
 jobs:
-  test-coverage:
+  test-coverage-portable:
     runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-Cinstrument-coverage"
+      RUSTDOCFLAGS: "-Ctarget-feature=+sse4.2"
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -25,7 +26,7 @@ jobs:
       run: cargo test --release --verbose
     - name: Generate coverage
       run: |
-              grcov $(find . -name "cityHash_sys-*.profraw" -print) \
+              grcov $(find . -name "cityhash_sys-*.profraw" -print) \
               --branch \
               --ignore-not-existing \
               --binary-path ./target/release/ \
@@ -34,6 +35,37 @@ jobs:
               --ignore "/*" \
               --ignore build.rs \
               -o lcov.info
-    - name: Upload report to codecov
-      uses: codecov/codecov-action@v2
 
+  test-coverage-sse4.2:
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: "-Ctarget-feature=+sse4.2 -Cinstrument-coverage"
+      RUSTDOCFLAGS: "-Ctarget-feature=+sse4.2"
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Setup Rust
+      run: |
+          rustup toolchain add nightly --component llvm-tools-preview
+          rustup override set nightly
+          cargo install grcov
+    - name: Build
+      run: cargo build --release --verbose
+    - name: Test
+      run: cargo test --release --verbose
+    - name: Generate coverage
+      run: |
+              grcov $(find . -name "cityhash_sys-*.profraw" -print) \
+              --branch \
+              --ignore-not-existing \
+              --binary-path ./target/release/ \
+              -s . \
+              -t lcov \
+              --ignore "/*" \
+              --ignore build.rs \
+              -o lcov.info
+  upload-to-codecov:
+      needs: [ test-coverage-portable, test-coverage-sse4.2 ]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
