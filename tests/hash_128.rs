@@ -574,9 +574,9 @@ fn hash_128_to_64() {
 #[cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
 fn hash_crc_128_from_null_ptr() {
     assert_eq!(
-        cityhash_sys::city_hash_crc_128(unsafe {
+        unsafe {cityhash_sys::city_hash_crc_128(
             core::slice::from_raw_parts(core::ptr::null::<u8>(), 0)
-        }),
+        )},
         0x3CB540C392E51E293DF09DFC64C09A2B
     );
 }
@@ -588,7 +588,7 @@ fn hash_crc_128_no_seed() {
     for index in 0..=255u8 {
         key[index as usize] = index;
         assert_eq!(
-            cityhash_sys::city_hash_crc_128(&key[0..index as usize]),
+            unsafe {cityhash_sys::city_hash_crc_128(&key[0..index as usize])},
             CITY_HASH_128_RESULTS[index as usize]
         );
     }
@@ -602,7 +602,7 @@ fn hash_crc_128_with_seed() {
     for index in 0..=255u8 {
         key[index as usize] = index;
         assert_eq!(
-            cityhash_sys::city_hash_crc_128_with_seed(&key[0..index as usize], index as u128),
+            unsafe {cityhash_sys::city_hash_crc_128_with_seed(&key[0..index as usize], index as u128)},
             CITY_HASH_128_WITH_SEED_RESULT[index as usize]
         );
     }
@@ -612,7 +612,7 @@ fn hash_crc_128_with_seed() {
 #[cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
 fn hash_crc_128_from_str_lipsum() {
     assert_eq!(
-        cityhash_sys::city_hash_crc_128(lipsum::LIPSUM.as_bytes()),
+        unsafe {cityhash_sys::city_hash_crc_128(lipsum::LIPSUM.as_bytes())},
         0x9C5514CDF7881DDB8326FD07983BD576
     );
 }

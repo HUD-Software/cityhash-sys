@@ -4,11 +4,12 @@
 Rust bindings to [Google CityHash](https://github.com/google/cityhash)'s C++ API.
 CityHash-sys do not load the standard library (a.k.a `no_std`).
 
-[![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml) 
+[![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml)
 [![Test](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml)
 [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys) [![docs.rs](https://img.shields.io/docsrs/cityhash-sys?style=plastic)](https://docs.rs/cityhash-sys/latest/cityhash_sys/)
 
 **Table of contents**
+
 1. [Introduction](#introduction)
 2. [Usage](#usage)
     1. [Using Hasher](#using-hasher)
@@ -22,11 +23,10 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 CityHash provides hash functions for strings. Functions mix the input bits thoroughly but are not suitable for cryptography.
 CityHash-sys is tested on little-endian but should work on big-endian architecture.
 
-
-
 ## Usage
 
 ### Using Hasher
+
 ```rust
 use cityhash_sys::CityHashBuildHasher;
 use std::collections::HashMap;
@@ -39,6 +39,7 @@ map.insert(KEY, VALUE);
 
 assert_eq!(map.get(&KEY), Some(&VALUE));
 ```
+
 **_Note_** *`CityHashBuildHasher` is an alias to the the 64-bits CityHash `CityHash64Hasher`. `CityHash32Hasher` and `CityHash128Hasher` are also available but result are still `u64`. See documentation for more details.*
 
 ### Using portable CityHash functions
@@ -46,6 +47,7 @@ assert_eq!(map.get(&KEY), Some(&VALUE));
 Rust bindings provides a safe interface to all Google's CityHash hash functions that do not make use of x86_64 CRC intrinsic:
 
 ***32-bit hash***
+
 ```rust ignore
 // uint32 CityHash32(const char *, size_t);
 fn city_hash_32(buf: &[u8]) -> u32;
@@ -77,7 +79,7 @@ fn city_hash_128_with_seed(buf: &[u8], seed: u128) -> u128;
 fn city_hash_128_to_64(hash: u128) -> u64;
 ```
 
-**_Note:_** *Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings.*
+**_Note:_** _Depending on your compiler and hardware, it's likely faster than CityHash64() on sufficiently long strings.  It's slower than necessary on shorter strings._
 
 ### Using CityHash functions with CRC-32 intrinsic
 
@@ -89,17 +91,17 @@ If the buffer to hash is less than 900 bytes, `CityHashCrc128WithSeed` and `City
 
 ```rust ignore
 // uint128 CityHashCrc128(const char *, size_t);
-fn city_hash_crc_128(buf: &[u8]) -> u128;
+unsafe fn city_hash_crc_128(buf: &[u8]) -> u128;
 
 // uint128 CityHashCrc128WithSeed(const char *, size_t, uint128);
-fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
+unsafe fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 ```
 
 ***256-bit hash with CRC-32 intrinsic***
 
 ```rust ignore
 // void CityHashCrc256(const char *, size_t, uint64 *);
-fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
+unsafe fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
 ```
 
 ## Performance

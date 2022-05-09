@@ -1543,9 +1543,9 @@ static CITY_HASH_CRC_128_RESULTS: [[u64; 4]; 256] = [
 #[test]
 fn hash_crc_256_from_null_ptr() {
     assert_eq!(
-        cityhash_sys::city_hash_crc_256(unsafe {
+        unsafe {cityhash_sys::city_hash_crc_256(
             core::slice::from_raw_parts(core::ptr::null(), 0)
-        }),
+        )},
         [
             10742825796673861936,
             7496450439486572256,
@@ -1562,7 +1562,7 @@ fn hash_crc_256_no_seed() {
     for index in 0..=255u8 {
         key[index as usize] = index;
         assert_eq!(
-            cityhash_sys::city_hash_crc_256(&key[0..index as usize]),
+            unsafe {cityhash_sys::city_hash_crc_256(&key[0..index as usize])},
             CITY_HASH_CRC_128_RESULTS[index as usize]
         );
     }
@@ -1571,7 +1571,7 @@ fn hash_crc_256_no_seed() {
 #[test]
 fn hash_crc_256_from_str_lipsum() {
     assert_eq!(
-        cityhash_sys::city_hash_crc_256(lipsum::LIPSUM.as_bytes()),
+        unsafe {cityhash_sys::city_hash_crc_256(lipsum::LIPSUM.as_bytes())},
         [
             8704233834023480895,
             13016673051993702793,
