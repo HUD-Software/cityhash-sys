@@ -35,6 +35,7 @@ extern "C" {
 /// ```
 #[inline]
 #[must_use]
+#[target_feature(enable = "sse4.2")]
 pub fn city_hash_crc_128(bytes: &[u8]) -> u128 {
     unsafe {
         let mut low_128_half = MaybeUninit::<u64>::uninit();
@@ -61,6 +62,7 @@ pub fn city_hash_crc_128(bytes: &[u8]) -> u128 {
 /// ```
 #[inline]
 #[must_use]
+#[target_feature(enable = "sse4.2")]
 pub fn city_hash_crc_128_with_seed(bytes: &[u8], seed: u128) -> u128 {
     unsafe {
         let mut low_128_half = MaybeUninit::<u64>::uninit();
@@ -90,6 +92,7 @@ pub fn city_hash_crc_128_with_seed(bytes: &[u8], seed: u128) -> u128 {
 /// ```
 #[inline]
 #[must_use]
+#[target_feature(enable = "sse4.2")]
 pub fn city_hash_crc_256(bytes: &[u8]) -> [u64; 4] {
     unsafe {
         let mut hash = MaybeUninit::<[u64; 4]>::uninit();
