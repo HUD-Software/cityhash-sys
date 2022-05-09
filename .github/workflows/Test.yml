@@ -65,6 +65,7 @@ jobs:
               --ignore build.rs \
               -o lcov.info
   upload-to-codecov:
+      runs-on: ubuntu-latest
       needs: [ test-coverage-portable, test-coverage-sse4.2 ]
       steps:
         - name: Checkout
