@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: "-Cinstrument-coverage"
-      RUSTDOCFLAGS: "-Ctarget-feature=+sse4.2"
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
