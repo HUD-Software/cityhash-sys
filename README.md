@@ -8,7 +8,7 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 [![Test](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml)
 [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys) [![docs.rs](https://img.shields.io/docsrs/cityhash-sys?style=plastic)](https://docs.rs/cityhash-sys/latest/cityhash_sys/)
 
-**Table of contents**
+**_Table of contents_**
 
 1. [Introduction](#introduction)
 2. [Usage](#usage)
@@ -40,20 +40,20 @@ map.insert(KEY, VALUE);
 assert_eq!(map.get(&KEY), Some(&VALUE));
 ```
 
-**_Note_** *`CityHashBuildHasher` is an alias to the the 64-bits CityHash `CityHash64Hasher`. `CityHash32Hasher` and `CityHash128Hasher` are also available but result are still `u64`. See documentation for more details.*
+**_Note_** _`CityHashBuildHasher` is an alias to the the 64-bits CityHash `CityHash64Hasher`. `CityHash32Hasher` and `CityHash128Hasher` are also available but result are still `u64`. See documentation for more details._
 
 ### Using portable CityHash functions
 
 Rust bindings provides a safe interface to all Google's CityHash hash functions that do not make use of x86_64 CRC intrinsic:
 
-***32-bit hash***
+**_32-bit hash_**
 
 ```rust ignore
 // uint32 CityHash32(const char *, size_t);
 fn city_hash_32(buf: &[u8]) -> u32;
 ```
 
-***64-bit hash***
+**_64-bit hash_**
 
 ```rust ignore
 // uint64 CityHash64(const char *, size_t);
@@ -66,7 +66,7 @@ fn city_hash_64_with_seed(buf: &[u8], seed: u64) -> u64;
 fn city_hash_64_with_seeds(buf: &[u8], seed_0: u64, seed_1: u64) -> u64;
 ```
 
-***128-bit hash***
+**_128-bit hash_**
 
 ```rust ignore
 // uint128 CityHash128(const char *, size_t);
@@ -87,7 +87,7 @@ Some functions are available only if the target is `x86_64` and support at least
 Note that depending of the length of the buffer you want to hash, it can be faster to use the non-intrinsic version.
 If the buffer to hash is less than 900 bytes, `CityHashCrc128WithSeed` and `CityHashCrc128` will respectivelly internally call `CityHash128WithSeed` and `CityHash128`, in this case, it is better to call directly `CityHash128WithSeed` or `CityHash128`.
 
-***128-bit hash with CRC-32 intrinsic***
+**_128-bit hash with CRC-32 intrinsic_**
 
 ```rust ignore
 // uint128 CityHashCrc128(const char *, size_t);
@@ -97,7 +97,7 @@ unsafe fn city_hash_crc_128(buf: &[u8]) -> u128;
 unsafe fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 ```
 
-***256-bit hash with CRC-32 intrinsic***
+**_256-bit hash with CRC-32 intrinsic_**
 
 ```rust ignore
 // void CityHashCrc256(const char *, size_t, uint64 *);
