@@ -6,7 +6,7 @@ edition = "2021"
 license = "MIT"
 description = "Rust binding of Google CityHash algorithm."
 repository = "https://github.com/HUD-Software/cityhash-sys"  
-keywords = ["google", "hash", "string", "gamedev", "hasher", "hashmap"]
+keywords = ["hash", "string", "gamedev", "hasher", "hashmap"]
 categories = ["algorithms", "external-ffi-bindings", "no-std"]
 
 [build-dependencies]
