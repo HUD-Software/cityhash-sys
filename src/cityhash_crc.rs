@@ -24,7 +24,8 @@ extern "C" {
 }
 
 /// Retrieves a 128-bit hash of a slice of bytes.
-///
+/// 
+/// # Safety
 /// # Example
 ///
 /// ```
@@ -50,6 +51,7 @@ pub unsafe fn city_hash_crc_128(bytes: &[u8]) -> u128 {
 
 /// Retrieves a 128-bit hash of a slice of bytes, a seed is also hashed into the result.
 ///
+/// # Safety
 /// # Example
 ///
 /// ```
@@ -78,6 +80,7 @@ pub unsafe fn city_hash_crc_128_with_seed(bytes: &[u8], seed: u128) -> u128 {
 /// Retrieves a 256-bit hash fo a slice of bytes.
 /// The hash is a slice of u64 where [0..4] is [low..high] bits.
 ///
+/// # Safety
 /// # Example
 ///
 /// ```

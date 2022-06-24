@@ -204,7 +204,7 @@ static CITY_HASH_64_WITH_SEEDS_RESULT :[u64; 256] = [
 #[test]
 fn hash_64_from_null_ptr() {
     assert_eq!(
-        cityhash_sys::city_hash_64(unsafe { core::slice::from_raw_parts(core::ptr::null(), 0) }),
+        cityhash_sys::city_hash_64(unsafe { core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0) }),
         0x9AE16A3B2F90404Fu64
     );
 }
@@ -213,7 +213,7 @@ fn hash_64_from_null_ptr() {
 fn hash_64_with_seed_from_null_ptr() {
     assert_eq!(
         cityhash_sys::city_hash_64_with_seed(
-            unsafe { core::slice::from_raw_parts(core::ptr::null(), 0) },
+            unsafe { core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0) },
             0x5555555555555555
         ),
         0x843a9b9c18a444a2
@@ -224,7 +224,7 @@ fn hash_64_with_seed_from_null_ptr() {
 fn hash_64_with_seeds_from_null_ptr() {
     assert_eq!(
         cityhash_sys::city_hash_64_with_seeds(
-            unsafe { core::slice::from_raw_parts(core::ptr::null(), 0) },
+            unsafe { core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0) },
             0x5555555555555555,
             0xAAAAAAAAAAAAAAAA
         ),

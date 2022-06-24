@@ -39,7 +39,7 @@ static CITY_HASH_32_RESULTS: [u32; 256] = [
 fn hash_32_from_null_ptr() {
     assert_eq!(
         cityhash_sys::city_hash_32(unsafe {
-            core::slice::from_raw_parts(core::ptr::null::<u8>(), 0)
+            core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0)
         }),
         0xDC56D17A
     );

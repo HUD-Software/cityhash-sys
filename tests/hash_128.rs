@@ -519,10 +519,11 @@ static CITY_HASH_128_WITH_SEED_RESULT: [u128; 256] = [
 ];
 
 #[test]
+#[allow(clippy::invalid_null_ptr_usage)]
 fn hash_128_from_null_ptr() {
     assert_eq!(
         cityhash_sys::city_hash_128(unsafe {
-            core::slice::from_raw_parts(core::ptr::null::<u8>(), 0)
+            core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0)
         }),
         0x3CB540C392E51E293DF09DFC64C09A2B
     );
@@ -575,7 +576,7 @@ fn hash_128_to_64() {
 fn hash_crc_128_from_null_ptr() {
     assert_eq!(
         unsafe {cityhash_sys::city_hash_crc_128(
-            core::slice::from_raw_parts(core::ptr::null::<u8>(), 0)
+            core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0)
         )},
         0x3CB540C392E51E293DF09DFC64C09A2B
     );

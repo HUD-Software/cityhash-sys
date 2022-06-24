@@ -6,6 +6,7 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 
 [![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml)
 [![Test](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml)
+[![Clippy](https://img.shields.io/github/workflow/status/HUD-Software/cityhash-sys/Clippy?label=Clippy&style=plastic)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Clippy.yml)
 [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys) [![docs.rs](https://img.shields.io/docsrs/cityhash-sys?style=plastic)](https://docs.rs/cityhash-sys/latest/cityhash_sys/)
 
 **_Table of contents_**

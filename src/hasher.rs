@@ -121,7 +121,7 @@ impl Hasher for CityHash32Hasher {
                 key = key.wrapping_mul(C1);
                 key = key.rotate_right(17);
                 key = key.wrapping_mul(C2);
-                seed = seed ^ key;
+                seed ^= key;
                 seed = seed.rotate_right(19);
                 seed.wrapping_mul(5).wrapping_add(0xe6546b64)
             }

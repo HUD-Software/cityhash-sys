@@ -1544,7 +1544,7 @@ static CITY_HASH_CRC_128_RESULTS: [[u64; 4]; 256] = [
 fn hash_crc_256_from_null_ptr() {
     assert_eq!(
         unsafe {cityhash_sys::city_hash_crc_256(
-            core::slice::from_raw_parts(core::ptr::null(), 0)
+            core::slice::from_raw_parts(core::ptr::NonNull::dangling().as_ptr(), 0)
         )},
         [
             10742825796673861936,

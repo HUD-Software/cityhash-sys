@@ -58,8 +58,8 @@ fn build_hasher_64_results_are_coherent() {
     assert_eq!(hasher.finish(), hash_free_function);
 
     // Second hash is equivalent to city_hash_64_with_seed with seed that is hash key of the first hash
-    let hash_free_function = cityhash_sys::city_hash_64_with_seed(&HASH_ME, hash_free_function);
-    hasher.write(&HASH_ME);
+    let hash_free_function = cityhash_sys::city_hash_64_with_seed(HASH_ME, hash_free_function);
+    hasher.write(HASH_ME);
     assert_eq!(hasher.finish(), hash_free_function);
 }
 
@@ -94,8 +94,8 @@ fn build_hasher_128_results_are_coherent() {
     );
 
     // Second hash is equivalent to city_hash_64_with_seed with seed that is hash key of the first hash
-    let hash_free_function = cityhash_sys::city_hash_128_with_seed(&HASH_ME, hash_free_function);
-    hasher.write(&HASH_ME);
+    let hash_free_function = cityhash_sys::city_hash_128_with_seed(HASH_ME, hash_free_function);
+    hasher.write(HASH_ME);
     assert_eq!(
         hasher.finish(),
         cityhash_sys::city_hash_128_to_64(hash_free_function)
