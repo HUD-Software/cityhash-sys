@@ -1,5 +1,4 @@
 <div align="center">
-  <img style="max-width: 70%;" src="https://github.com/HUD-Software/branding/blob/master/logo_bande_time_new_roman_v4.png?raw=true"/>
   <h1>CityHash
 
   [![Crates.io](https://img.shields.io/crates/v/cityhash-sys?logo=Docs.rs&style=flat-square)](https://crates.io/crates/cityhash-sys) [![License](https://img.shields.io/crates/l/cityhash-sys?style=flat-square)](https://choosealicense.com/licenses/mit/)
