@@ -1,26 +1,27 @@
 #![cfg(all(target_arch = "x86_64", target_feature = "sse4.2"))]
 
-use crate::int128::Composer;
+use crate::u128_low_high::LowHigh;
 use core::mem::MaybeUninit;
+use core::ffi::{c_char, c_size_t};
 
 extern "C" {
     fn CityHashCrc128(
-        buf: *const i8,
-        len: usize,
+        buf: *const c_char,
+        len: c_size_t,
         hash_low_128_half: *mut u64,
         hash_high_128_half: *mut u64,
     );
 
     fn CityHashCrc128WithSeed(
-        buf: *const i8,
-        len: usize,
+        buf: *const c_char,
+        len: c_size_t,
         seed_low_128_half: u64,
         seed_high_128_half: u64,
         hash_low_128_half: *mut u64,
         hash_high_128_half: *mut u64,
     );
 
-    fn CityHashCrc256(buf: *const i8, len: usize, hash: *mut u64);
+    fn CityHashCrc256(buf: *const c_char, len: c_size_t, hash: *mut u64);
 }
 
 /// Retrieves a 128-bit hash of a slice of bytes.

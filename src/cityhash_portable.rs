@@ -1,21 +1,22 @@
-use crate::int128::Composer;
+use crate::u128_low_high::LowHigh;
 use core::mem::MaybeUninit;
+use core::ffi::{c_char, c_size_t};
 
 extern "C" {
-    fn CityHash32(buf: *const i8, len: usize) -> u32;
-    fn CityHash64(buf: *const i8, len: usize) -> u64;
-    fn CityHash64WithSeed(buf: *const i8, len: usize, seed: u64) -> u64;
-    fn CityHash64WithSeeds(buf: *const i8, len: usize, seed0: u64, seed1: u64) -> u64;
+    fn CityHash32(buf: *const c_char, len: c_size_t) -> u32;
+    fn CityHash64(buf: *const c_char, len: c_size_t) -> u64;
+    fn CityHash64WithSeed(buf: *const c_char, len: c_size_t, seed: u64) -> u64;
+    fn CityHash64WithSeeds(buf: *const c_char, len: c_size_t, seed0: u64, seed1: u64) -> u64;
 
     fn CityHash128(
-        buf: *const i8,
-        len: usize,
+        buf: *const c_char,
+        len: c_size_t,
         hash_low_128_half: *mut u64,
         hash_high_128_half: *mut u64,
     );
     fn CityHash128WithSeed(
-        buf: *const i8,
-        len: usize,
+        buf: *const c_char,
+        len: c_size_t,
         seed_low_128_half: u64,
         seed_high_128_half: u64,
         hash_low_128_half: *mut u64,

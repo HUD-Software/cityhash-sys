@@ -103,7 +103,7 @@ unsafe fn city_hash_crc_128_with_seed(buf: &[u8], seed: u128) -> u128;
 
 ```rust ignore
 // void CityHashCrc256(const char *, size_t, uint64 *);
-unsafe fn city_hash_crc_256(buf: &[u8]) -> [u64; 4]; //
+unsafe fn city_hash_crc_256(buf: &[u8]) -> [u64; 4];
 ```
 
 ## Performance
