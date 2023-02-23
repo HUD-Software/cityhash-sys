@@ -1,6 +1,6 @@
 [package]
 name = "cityhash-sys"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["Julian LALU"]
 edition = "2021"
 license = "MIT"
