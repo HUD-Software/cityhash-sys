@@ -1,9 +1,9 @@
 <div align="center">
-  <img width="200" height="200" background-color="white" src="https://avatars.githubusercontent.com/u/104791429"/>
-  <h1>CityHash </h1>
+  <img style="max-width: 70%;" src="https://github.com/HUD-Software/branding/blob/master/logo_bande_time_new_roman_v4.png?raw=true"/>
+  <h1>CityHash
 
-  [![Crates.io](https://img.shields.io/crates/v/cityhash-sys?style=plastic)](https://crates.io/crates/cityhash-sys) [![Crates.io](https://img.shields.io/crates/l/cityhash-sys?style=plastic)](https://choosealicense.com/licenses/mit/)
-
+  [![Crates.io](https://img.shields.io/crates/v/cityhash-sys?logo=Docs.rs&style=flat-square)](https://crates.io/crates/cityhash-sys) [![License](https://img.shields.io/crates/l/cityhash-sys?style=flat-square)](https://choosealicense.com/licenses/mit/)
+  </h1>
 </div>
 
 Rust bindings to [Google CityHash](https://github.com/google/cityhash)'s C++ API.
@@ -11,9 +11,11 @@ CityHash-sys do not load the standard library (a.k.a `no_std`).
 
 **_Status_**
 
-[![Build](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml) [![Clippy](https://img.shields.io/github/workflow/status/HUD-Software/cityhash-sys/Clippy?label=Clippy&style=plastic)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Clippy.yml) [![docs.rs](https://img.shields.io/docsrs/cityhash-sys?style=plastic)](https://docs.rs/cityhash-sys/latest/cityhash_sys/)
-
-[![Test](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml/badge.svg)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml) [![codecov](https://codecov.io/gh/HUD-Software/cityhash-sys/branch/master/graph/badge.svg?token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys)
+[![Build](https://img.shields.io/github/actions/workflow/status/hud-software/cityhash-sys/Build.yml?label=Build&logo=Rust&logoColor=lightgrey&style=flat-square)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Build.yml)
+[![Clippy](https://img.shields.io/github/actions/workflow/status/hud-software/cityhash-sys/Clippy.yml?label=Clippy&logo=Rust&logoColor=lightgrey&style=flat-square)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Clippy.yml)
+[![docs.rs](https://img.shields.io/docsrs/cityhash-sys/latest?label=Docs&logo=Docs.rs&logoColor=lightgrey&style=flat-square)](https://docs.rs/cityhash-sys/latest/cityhash_sys/)
+[![Test](https://img.shields.io/github/actions/workflow/status/hud-software/cityhash-sys/Test.yml?label=Tests&logo=Rust&logoColor=lightgrey&style=flat-square)](https://github.com/HUD-Software/cityhash-sys/actions/workflows/Test.yml)
+[![codecov](https://img.shields.io/codecov/c/github/hud-software/cityhash-sys?label=Codecov&logo=Codecov&logoColor=lightgrey&style=flat-square&token=LTEI8LUT5R)](https://codecov.io/gh/HUD-Software/cityhash-sys)
 
 **_Table of contents_**
 
