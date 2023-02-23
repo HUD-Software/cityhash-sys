@@ -17,7 +17,7 @@ jobs:
     - name: Setup Rust
       run: |
           rustup toolchain add nightly --component llvm-tools-preview
-          rustup override set nightly
+          rustup default nightly
           cargo install grcov
     - name: Build
       run: cargo build --release --verbose
@@ -46,7 +46,7 @@ jobs:
     - name: Setup Rust
       run: |
           rustup toolchain add nightly --component llvm-tools-preview
-          rustup override set nightly
+          rustup default nightly
           cargo install grcov
     - name: Build
       run: cargo build --release --verbose

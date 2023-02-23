@@ -1,5 +1,10 @@
+<div align="center">
+  <img width="200" height="200" background-color="white" src="https://avatars.githubusercontent.com/u/104791429"/>
+  <h1>CityHash </h1>
 
-# CityHash-sys [![Crates.io](https://img.shields.io/crates/v/cityhash-sys?style=plastic)](https://crates.io/crates/cityhash-sys) [![Crates.io](https://img.shields.io/crates/l/cityhash-sys?style=plastic)](https://choosealicense.com/licenses/mit/)
+  [![Crates.io](https://img.shields.io/crates/v/cityhash-sys?style=plastic)](https://crates.io/crates/cityhash-sys) [![Crates.io](https://img.shields.io/crates/l/cityhash-sys?style=plastic)](https://choosealicense.com/licenses/mit/)
+
+</div>
 
 Rust bindings to [Google CityHash](https://github.com/google/cityhash)'s C++ API.
 CityHash-sys do not load the standard library (a.k.a `no_std`).
