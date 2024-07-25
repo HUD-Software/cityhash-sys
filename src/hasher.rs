@@ -27,11 +27,7 @@ impl Hasher for CityHash64Hasher {
     /// assert_eq!(hasher.finish(), 0xB4BFA9E87732C149);
     /// ```
     fn finish(&self) -> u64 {
-        if let Some(hash) = self.key {
-            hash
-        } else {
-            0
-        }
+        self.key.unwrap_or(0)
     }
 
     /// Writes some data into the [CityHash64Hasher].
